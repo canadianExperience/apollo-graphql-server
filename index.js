@@ -5,7 +5,6 @@ const { ApolloServer, gql } = require('apollo-server-express');
 const typeDefs = require('./data/typeDefs');
 const resolvers = require('./data/resolvers');
 const mongoose = require('mongoose');
-const mongo = process.env.MONGODB;
 
 async function startServer(){
     const app = express();
@@ -21,17 +20,18 @@ async function startServer(){
         res.send("Hello from express apollo server")
     });
     
-    await mongoose.connect(mongo, {
+    await mongoose.connect(process.env.MONGODB_URI, {
         useUnifiedTopology: true,
         useNewUrlParser: true,
     })
         .then(() => {
             console.log('Mongodb connected');
-            return app.listen({port:4000});
+            return app.listen({port: process.env.PORT || 4000});
         })
         .then((res) => {
             console.log(`Server running at ${res.url}`);
         }
     );
+    //Run local server: localhost:4000/graphql
 }
 startServer();
