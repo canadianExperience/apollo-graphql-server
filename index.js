@@ -29,7 +29,7 @@ async function startServer(){
             return app.listen({port: process.env.PORT || 4000});
         })
         .then((res) => {
-            console.log(`Server running at ${res.url}`);
+            console.log(`Server running at ${res.port}`);
         }
     );
     //Run local server: localhost:4000/graphql
