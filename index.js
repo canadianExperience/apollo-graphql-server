@@ -11,7 +11,8 @@ async function startServer(){
    
     const apolloServer  = new ApolloServer({
         typeDefs,
-        resolvers
+        resolvers,
+        introspection: process.env.NODE_ENV !== 'production'
     });
 
     await apolloServer.start();
